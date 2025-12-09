@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Search, Menu, X, Zap } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Search, Menu, X, Zap, User, LogOut } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 export function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logout();
+        navigate('/login');
+    };
 
     return (
         <nav className="fixed top-0 w-full z-50 bg-background/95 backdrop-blur-sm border-b border-gray-800">
@@ -28,11 +36,24 @@ export function Navbar() {
                     </div>
 
                     <Link to="/catalogo" className="text-sm font-bold text-white hover:text-primary transition-colors uppercase tracking-wide">Catálogo Técnico</Link>
-                    <Link to="/contacto" className="text-sm font-bold text-white hover:text-primary transition-colors uppercase tracking-wide">Contacto</Link>
 
-                    <Link to="/cotizar" className="bg-primary text-black px-5 py-2.5 rounded-sm font-bold text-sm hover:bg-yellow-400 transition-colors uppercase tracking-wide">
-                        Cotizar Ahora
-                    </Link>
+                    {user ? (
+                        <div className="flex items-center gap-4">
+                            <Link to="/dashboard" className="flex items-center gap-2 text-sm font-bold text-white hover:text-primary transition-colors uppercase tracking-wide">
+                                <User className="w-4 h-4" /> Mi Cuenta
+                            </Link>
+                            <button onClick={handleLogout} className="text-sm font-bold text-red-400 hover:text-red-300 transition-colors uppercase tracking-wide">
+                                <LogOut className="w-4 h-4" />
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="flex items-center gap-4">
+                            <Link to="/login" className="text-sm font-bold text-white hover:text-primary transition-colors uppercase tracking-wide">Iniciar Sesión</Link>
+                            <Link to="/cotizar" className="bg-primary text-black px-5 py-2.5 rounded-sm font-bold text-sm hover:bg-yellow-400 transition-colors uppercase tracking-wide">
+                                Cotizar Ahora
+                            </Link>
+                        </div>
+                    )}
                 </div>
 
                 {/* Mobile Menu Button */}
@@ -53,10 +74,20 @@ export function Navbar() {
                         className="w-full bg-black border border-gray-700 rounded-sm py-2 px-4 text-sm focus:border-primary focus:outline-none text-white"
                     />
                     <Link to="/catalogo" className="block text-sm font-bold text-white hover:text-primary uppercase" onClick={() => setIsMenuOpen(false)}>Catálogo Técnico</Link>
-                    <Link to="/contacto" className="block text-sm font-bold text-white hover:text-primary uppercase" onClick={() => setIsMenuOpen(false)}>Contacto</Link>
-                    <Link to="/cotizar" className="block w-full text-center bg-primary text-black py-3 rounded-sm font-bold text-sm uppercase" onClick={() => setIsMenuOpen(false)}>
-                        Cotizar Ahora
-                    </Link>
+
+                    {user ? (
+                        <>
+                            <Link to="/dashboard" className="block text-sm font-bold text-white hover:text-primary uppercase" onClick={() => setIsMenuOpen(false)}>Mi Cuenta</Link>
+                            <button onClick={() => { handleLogout(); setIsMenuOpen(false); }} className="block w-full text-left text-sm font-bold text-red-400 hover:text-red-300 uppercase">Cerrar Sesión</button>
+                        </>
+                    ) : (
+                        <>
+                            <Link to="/login" className="block text-sm font-bold text-white hover:text-primary uppercase" onClick={() => setIsMenuOpen(false)}>Iniciar Sesión</Link>
+                            <Link to="/cotizar" className="block w-full text-center bg-primary text-black py-3 rounded-sm font-bold text-sm uppercase" onClick={() => setIsMenuOpen(false)}>
+                                Cotizar Ahora
+                            </Link>
+                        </>
+                    )}
                 </div>
             )}
         </nav>
