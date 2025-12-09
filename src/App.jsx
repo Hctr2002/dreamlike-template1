@@ -14,6 +14,10 @@ import { Register } from './pages/Register';
 import { Dashboard } from './pages/Dashboard';
 import { ProductDetail } from './pages/ProductDetail';
 import { Cart } from './pages/Cart';
+import { PresentationHub } from './pages/presentation/PresentationHub';
+import { DashboardCentral } from './pages/presentation/DashboardCentral';
+import { InventoryManagement } from './pages/presentation/InventoryManagement';
+import { FinanceModule } from './pages/presentation/FinanceModule';
 
 function App() {
   return (
@@ -34,6 +38,12 @@ function App() {
                   <Route path="/login" element={<Login />} />
                   <Route path="/registro" element={<Register />} />
                   <Route path="/dashboard" element={<Dashboard />} />
+
+                  {/* Presentation Routes (MVP Phase I) */}
+                  <Route path="/presentacion" element={<PresentationHub />} />
+                  <Route path="/presentacion/dashboard" element={<DashboardCentral />} />
+                  <Route path="/presentacion/inventario" element={<InventoryManagement />} />
+                  <Route path="/presentacion/finanzas" element={<FinanceModule />} />
                 </Routes>
               </main>
               <Footer />
