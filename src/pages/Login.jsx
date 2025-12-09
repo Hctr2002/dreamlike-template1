@@ -85,8 +85,20 @@ export function Login() {
                 </div>
 
                 <div className="mt-4 p-3 bg-gray-800 rounded-sm text-xs text-gray-400 text-center space-y-1">
-                    <div><span className="font-bold text-white">Admin:</span> admin@dreamlike.cl / admin123</div>
-                    <div><span className="font-bold text-white">Cliente:</span> cliente@dreamlike.cl / cliente123</div>
+                    <div
+                        onClick={() => { setEmail('admin@dreamlike.cl'); setPassword('admin123'); }}
+                        className="cursor-pointer hover:text-white transition-colors hover:bg-gray-700/50 p-1 rounded"
+                        title="Click para rellenar"
+                    >
+                        <span className="font-bold text-white">Admin:</span> admin@dreamlike.cl / admin123
+                    </div>
+                    <div
+                        onClick={() => { setEmail('cliente@dreamlike.cl'); setPassword('cliente123'); }}
+                        className="cursor-pointer hover:text-white transition-colors hover:bg-gray-700/50 p-1 rounded"
+                        title="Click para rellenar"
+                    >
+                        <span className="font-bold text-white">Cliente:</span> cliente@dreamlike.cl / cliente123
+                    </div>
                 </div>
             </div>
         </div>
