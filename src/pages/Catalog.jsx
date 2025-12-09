@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useProducts } from '../context/ProductContext';
 
 export function Catalog() {
@@ -25,7 +26,7 @@ export function Catalog() {
                             <span className={`text-xs font-bold ${product.stock > 0 ? 'text-green-500' : 'text-red-500'}`}>
                                 {product.stock > 0 ? `Stock: ${product.stock}` : 'Agotado'}
                             </span>
-                            <button className="text-primary font-bold text-sm uppercase hover:text-yellow-300">Ver Detalles</button>
+                            <Link to={`/producto/${product.id}`} className="text-primary font-bold text-sm uppercase hover:text-yellow-300">Ver Detalles</Link>
                         </div>
                     </div>
                 ))}

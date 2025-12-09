@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, Menu, X, Zap, User, LogOut } from 'lucide-react';
+import { Search, Menu, X, Zap, User, LogOut, ShoppingCart } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
 
 export function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { user, logout } = useAuth();
+    const { getCartCount } = useCart();
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -36,6 +38,15 @@ export function Navbar() {
                     </div>
 
                     <Link to="/catalogo" className="text-sm font-bold text-white hover:text-primary transition-colors uppercase tracking-wide">Catálogo Técnico</Link>
+
+                    <Link to="/carrito" className="relative text-white hover:text-primary transition-colors">
+                        <ShoppingCart className="w-5 h-5" />
+                        {getCartCount() > 0 && (
+                            <span className="absolute -top-2 -right-2 bg-primary text-black text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full">
+                                {getCartCount()}
+                            </span>
+                        )}
+                    </Link>
 
                     {user ? (
                         <div className="flex items-center gap-4">
